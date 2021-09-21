@@ -1,0 +1,24 @@
+version: "3"
+services: 
+  #don't forget time zone
+  db:
+    build:
+      context: ./mysql
+      dockerfile: mysql.Dockerfile
+
+  worker:
+    build:
+      context: ./laravel
+      dockerfile: laravel.Dockerfile
+    depends_on: 
+      - db
+
+  web:
+    build:
+      context: ./nginx
+      dockerfile: nginx.Dockerfile
+    depends_on: 
+      - app
+volumes: 
+  db_volume:
+  
